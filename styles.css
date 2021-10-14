@@ -1,11 +1,18 @@
 .row {
     display: flex;
-    gap: 2px; 
-    margin-bottom: 2px;
+    /* gap: 2px; 
+    margin-bottom: 2px; */
 }
 
 .square {
-    border: 2px solid black;
+    /* border: 2px solid black;
     width:25px;
-    height:25px;
+    height:25px; */
+    /* flex: 1; */
+}
+
+#container {
+    width: 600px;
+    height: 600px;
+    border: 2px solid black;
 }
