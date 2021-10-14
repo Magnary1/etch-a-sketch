@@ -1,38 +1,37 @@
 
-
-// creating the main outline
-const body = document.querySelector(`body`)
+const squares = Array.from(document.getElementsByClassName(`square`)); //puts squares into an array
 
 
-// adding the classes
+// setup for cursor down and draw
+const all = document.getElementById(`all`)
+all.addEventListener(`mousedown`, beginEtch)
+all.addEventListener(`mouseup`, stopEtch)
+let mouseDown = 0
+let mouseUp = 0
 
+function beginEtch(e) {
+    mouseDown += 1
+    console.log(mouseDown)
 
-for (i = 0; i < 16; i++) {
-    // creates the rows
-    const row = document.createElement(`div`)
-    row.classList = `row`
-    body.appendChild(row)
-
-    // creates the columns
-    for (j = 0; j < 16; j++) {
-        const squares = document.createElement(`div`)
-        squares.classList = `square`
-        row.appendChild(squares)
-    }
 }
 
-const allSquares = Array.from(document.getElementsByClassName(`square`))
+function stopEtch(e) {
 
-console.log(allSquares)
+    mouseUp += 1
+    console.log(mouseUp)
+}
+//end setup for cursor down and draw
 
-allSquares.forEach(square => {
+
+//if cursor down, square will change color
+squares.forEach(square => {
 
     square.addEventListener(`mouseover`, changeColor)
     square.style.background = `white`
 
 
     function changeColor(e) {
-        // if (mouseUp != mouseDown) {
+        if (mouseUp != mouseDown) {
             if (square.style.backgroundColor === `white`) {
                 square.style.background = `red`
             } else if (square.style.backgroundColor === `red`) {
@@ -65,8 +64,11 @@ allSquares.forEach(square => {
             
             
             
+            else {
+                square.style.background = `grey`
+            }
 
-        // }
+        }
 
 
     }
