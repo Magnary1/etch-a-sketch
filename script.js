@@ -3,14 +3,30 @@ let size = 16
 originalSize() //starts out with 16x16 and rainbow colors
 let makeRainbowON = true;
 let makeTwoColorsON = false
-// SIZE BUTTON
+let makeSlowlyDarkerON = false
+// SIZE SLIDER
 
-const reset = document.getElementById('reset')
-reset.addEventListener(`click`, chooseSize)
+const slider = document.getElementById("myRange");
+const output = document.getElementById("demo");
+
+slider.value = size;
+output.innerHTML = `${size} x ${size}`;
+output.oninput = slider.value;
+
+slider.oninput = function () {
+    output.innerHTML = `${this.value} x ${this.value}`;
+}
+
+slider.addEventListener(`input`, chooseSize)
 
 // TWO COLOR BUTTON
 const twoColorsBtn = document.getElementById('twoColors')
 twoColorsBtn.addEventListener(`click`, makeTwoColors)
+
+// SLOWLY DARKER BUTTON
+const slowerDarkerBtn = document.getElementById('slowly-darker')
+slowerDarkerBtn.addEventListener(`click`, makeSlowlyDarker)
+
 
 // RAINBOW BUTTON
 const rainbowBtn = document.getElementById('rainbow')
@@ -65,21 +81,21 @@ function replaceRows() {
     originalSize()
 }
 
-function chooseSize() {
-    size = prompt(`what is your size`)  // gets L X H
+function chooseSize(e) {
+    size = slider.value  // gets L X H
 
-    if (size>100 || isNaN(size) || size<1) {
-        alert(`Please select a number 1-100.`)
-        chooseSize()
-    }
-    replaceRows()
-    checkColorPattern()
+    setTimeout(() => {replaceRows()  // using setTimeout to help with lag on slider? Does it work?
+        checkColorPattern()
+
+        
+    }, 200); 
 }
-
 
 function makeRainbow() {
     makeRainbowON = true
     makeTwoColorsON = false
+    makeSlowlyDarkerON = false
+
 
     replaceRows()
     const allSquares = Array.from(document.getElementsByClassName(`square`)) //grabs all squares and puts them into an array
@@ -113,6 +129,8 @@ function makeRainbow() {
 
 function makeTwoColors() {
     makeRainbowON = false
+    makeSlowlyDarkerON = false
+
     makeTwoColorsON = true
 
     replaceRows()
@@ -134,6 +152,45 @@ function makeTwoColors() {
     })
 }
 
+function makeSlowlyDarker() {
+    makeSlowlyDarkerON = true
+    makeRainbowON = false
+    makeTwoColorsON = false
+
+    replaceRows()
+
+    const allSquares = Array.from(document.getElementsByClassName(`square`)) //grabs all squares and puts them into an array
+
+    allSquares.forEach(square => {
+
+        square.addEventListener(`mouseover`, abcd)
+        square.style.background = `black`
+        square.style.opacity = `0`
+        let num = .1
+        console.log( square.style.opacity === `0` )
+        function abcd(e) {
+
+            if (square.style.opacity === `0`) {
+
+                square.style.opacity += num.toFixed(1);
+console.log(+square.style.opacity === `.1`)
+            } else if (square.style.opacity === `.1`) {
+                square.style.opacity += num.toFixed(1);
+                console.log( square.style.opacity)
+
+            } else if (square.style.opacity === `.2`) {
+                square.style.opacity += num.toFixed(1);
+            } else if (square.style.opacity === `.3`) {
+                square.style.opacity += num.toFixed(1);
+            } else if (square.style.opacity === `.4`) {
+                square.style.opacity += num.toFixed(1);
+            } else if (square.style.opacity === `.5`) {
+                square.style.opacity += num.toFixed(1);
+            } 
+        
+    }})
+}
+
 function checkColorPattern() {
     if (makeRainbowON === true) {
         makeRainbow()
@@ -148,3 +205,5 @@ function resetColors() {
 }
 
 makeRainbow() // IMPORTANT makes page start out as rainbow
+
+

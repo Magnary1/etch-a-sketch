@@ -14,10 +14,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 150px;
+   
     padding: 24px;
     gap: 10px;
+    align-self: center;
+    text-align: center;
+
+    /* Centers everything horizontally */
+    width: 160px;        
 }
+
+button {
+    padding: 8px;
+}
+
 #main-container {
     display: flex;
     flex-direction: column;
@@ -29,7 +39,8 @@ body {
     display: flex;
     justify-content: center;
     margin: 0px;
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
+    background-color: oldlace;
 }
 
 #bottom-side {
